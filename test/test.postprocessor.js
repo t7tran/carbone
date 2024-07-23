@@ -1,7 +1,8 @@
 var postprocessor = require('../lib/postprocessor');
 var helper = require('../lib/helper');
 
-const PNG_BASE64 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAA1JREFUGFdj+L+U4T8ABu8CpCYJ1DQAAAAASUVORK5CYII=';
+const PNG_BASE64 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII=';
+const PNG_URL = 'https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png';
 
 describe('postprocessor', function () {
   describe('process', function () {
@@ -41,13 +42,15 @@ describe('postprocessor', function () {
             { name : 'META-INF/manifest.xml', parent : '', data : ''}
           ]
         };
-        postprocessor.process(_report, {}, {});
-        helper.assert(/draw:mime-type="image\/png"/.test(contentXml.data), true);
-        helper.assert(/xlink:href="Pictures\/[0-9a-f]+.png"/.test(contentXml.data), true);
-        helper.assert(/<svg:title><\/svg:title>/.test(contentXml.data), true);
-        helper.assert(/Pictures\/[0-9a-f]+.png/.test(_report.files[2].name), true);
-        helper.assert(`data:image/png;base64,${_report.files[2].data.toString("base64")}`, PNG_BASE64);
-        done();
+        postprocessor.process(_report, {}, {}, function (err) {
+          helper.assert(!err, true);
+          helper.assert(/draw:mime-type="image\/png"/.test(contentXml.data), true);
+          helper.assert(/xlink:href="Pictures\/[0-9a-f]+.png"/.test(contentXml.data), true);
+          helper.assert(/<svg:title><\/svg:title>/.test(contentXml.data), true);
+          helper.assert(/Pictures\/[0-9a-f]+.png/.test(_report.files[2].name), true);
+          helper.assert(`data:image/png;base64,${_report.files[2].data.toString("base64")}`, PNG_BASE64);
+          done();
+        });
       });
     });
     describe('DOCX postprocessing', function () {
@@ -86,11 +89,13 @@ describe('postprocessor', function () {
             { name : 'word/_rels/document.xml.rels', parent : '', data : ''}
           ]
         };
-        postprocessor.process(_report, {}, {});
-        helper.assert(/title=""/.test(documentXml.data), true);
-        helper.assert(/media\/[0-9a-f]+.png/.test(_report.files[2].name), true);
-        helper.assert(`data:image/png;base64,${_report.files[2].data.toString("base64")}`, PNG_BASE64);
-        done();
+        postprocessor.process(_report, {}, {}, function (err) {
+          helper.assert(!err, true);
+          helper.assert(/title=""/.test(documentXml.data), true);
+          helper.assert(/media\/[0-9a-f]+.png/.test(_report.files[2].name), true);
+          helper.assert(`data:image/png;base64,${_report.files[2].data.toString("base64")}`, PNG_BASE64);
+          done();
+        });
       });
     });
   });
