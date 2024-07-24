@@ -1,7 +1,60 @@
+
+### v3.5.6
+  - Release June 12th 2024
+  - Fix: removed the possibility of prototype pollution in formatters. This can only occur if the parent NodeJS application has the same security issue. CVSS:3.0/AV:N/AC:H/PR:L/UI:N/S:C/C:H/I:H/A:H.
+  - Update some dependencies
+
+### v3.5.5
+  - Release February 15th 2023
+  - Bump dependencies
+  - Formatters `add()`, `mul()`, `sub()` and `div()` accept simple mathematical expressions inside parenthesis.
+      - Example: `{d.val:add(.otherQty  +  .vat  *  .price - 10 / 2)`
+      - Only mathematical operators `+, *, -, /` are allowed, without parenthesis
+      - Multiplication and division operators (`*`, `/`) has higher precedence than the addition/substration operator (`+`, `-`) and thus will be evaluated first.
+  - Exits on SIGTERM. When the signal is received
+  - Experimental: add the possibility to duplicate rows using an attribute of an object (200 repetitions maximum)
+    *Data*:
+      ```json
+      [
+        { "id" : "A", "qty" : 2 },
+        { "id" : "B", "qty" : 3 },
+        { "id" : "C", "qty" : 0 },
+        { "id" : "D", "qty" : 1 }
+      ]
+      ```
+    *Template*: `{d[i].id} - {d[i+1*qty].id}`
+    *Result*:  `A - A - B - B - B - D`
+  - Add `options.isDebugActive`. If true, `POST /render` returns additional information in `debug` sub-object:
+    ```js
+    {
+      "renderId" : "file.pdf",
+      "debug"    : {
+        "markers" : ["{d.id}", "{d.tab[i].id}"] // all markers found in template
+      }
+    }
+    ```
+
+### v3.4.1
+  - Accepts "OpenDocument Text Flat XML" (.fodt) template files
+  - Includes v3.3.3: fix timezone conversion with latest IANA database to manage correctly Daylight Saving Time
+
 ### v3.4.0
   - Remove compatibility with NodeJS 10.x. V8 uses timsort since NodeJS 11. So we can remove timsort dependency. NodeJS 12+ required.
   - Bump DayJS to 1.10.7
   - Bump debug to 4.3.2
+  - Improve thread management of LibreOffice on Linux:
+    - The system which auto-restarts LibreOffice when it crashes or if there is a conversion timeout could hang indefinitely on Linux.
+      On the Enterprise Edition, the global watchdog system is able to fix this bad behavior but it is slow.
+      Now, the LibreOffice is correctly killed. No zombie processes remaining.
+    - Avoid launching the parent process "oosplash" of LibreOffice
+    - Improve auto-restart mechanism
+    - Add debug logs
+    - All tests passed on Linux 😅
+
+### v3.3.3
+  - Release November 26th 2021
+  - Fix timezone conversion with latest IANA database to manage correctly Daylight Saving Time
+    `2021-11-18T08:05+0000` -> `Europe/London` -> `Thursday, November 18, 2021 8:05 AM`
 
 ### v3.3.0
   - Accept `null` for the attribute `complement` in `options`
