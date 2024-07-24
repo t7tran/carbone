@@ -28,6 +28,7 @@
     "dayjs": "=1.11.11",
     "dayjs-timezone-iana-plugin": "=0.1.0",
     "debug": "=4.3.5",
+    "html2json": "=1.0.2",
     "which": "=2.0.2",
     "yauzl": "=2.10.0",
     "yazl": "=2.5.1"
