@@ -152,6 +152,7 @@ describe("postprocessor", function () {
         process.env.CARBONE_MAX_IMAGE_URL = "2";
         postprocessor.process(template, {}, {}, function (err) {
           helper.assert(!!err, true);
+          process.env.CARBONE_MAX_IMAGE_URL = undefined;
           done();
         });
       });
@@ -177,6 +178,38 @@ describe("postprocessor", function () {
             `data:image/png;base64,${template.files[2].data.toString("base64")}`,
             PNG_BASE64
           );
+          done();
+        });
+      });
+      it("should replace w:drawing with image from URL", function (done) {
+        const { template, documentXml } = createDocxTemplate(PNG_URL);
+        postprocessor.process(template, {}, {}, function (err) {
+          helper.assert(!err, true);
+          helper.assert(/title=""/.test(documentXml.data), true);
+          helper.assert(
+            /media\/[0-9a-fA-F]+.png/.test(template.files[2].name),
+            true
+          );
+          helper.assert(
+            `data:image/png;base64,${template.files[2].data.toString("base64")}`,
+            PNG_BASE64
+          );
+          done();
+        });
+      });
+      it("should render error if image to fetch is too large", function (done) {
+        const { template } = createDocxTemplate(PNG_URL);
+        process.env.CARBONE_MAX_IMAGE_URL = "2";
+        postprocessor.process(template, {}, {}, function (err) {
+          helper.assert(!!err, true);
+          process.env.CARBONE_MAX_IMAGE_URL = undefined;
+          done();
+        });
+      });
+      it("should render error with invalid URL", function (done) {
+        const { template } = createDocxTemplate(PNG_INVALID_URL);
+        postprocessor.process(template, {}, {}, function (err) {
+          helper.assert(!!err, true);
           done();
         });
       });
