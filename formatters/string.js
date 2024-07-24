@@ -300,6 +300,7 @@ function processLists(html) {
 
 // credit: https://github.com/CryptoNinjaGeek/carbone.git
 function html(d) {
+  if (!d) return '';
   const html2XmlInstance = new html2xml(processLists(d));
   return Buffer.from(html2XmlInstance.getXML()).toString('base64') + ':html';
 }
