@@ -1,6 +1,6 @@
 var toMd5 = require('./md5');
 const html2xml = require('../lib/html2xml');
-
+const sanitizeHtml = require('sanitize-html');
 
 const LINEBREAK = {
   odt  : '<text:line-break/>',
@@ -301,7 +301,7 @@ function processLists(html) {
 // credit: https://github.com/CryptoNinjaGeek/carbone.git
 function html(d) {
   if (!d) return '';
-  const html2XmlInstance = new html2xml(processLists(d));
+  const html2XmlInstance = new html2xml(processLists(sanitizeHtml(d)));
   return Buffer.from(html2XmlInstance.getXML()).toString('base64') + ':html';
 }
 

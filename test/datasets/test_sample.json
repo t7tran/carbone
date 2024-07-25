@@ -5,7 +5,7 @@
   "url": "https://google.com",
   "barcode": "0123456789",
   "html": {
-    "intro": "<p><b>Dear customer,</b></p><p>Please find your invoice details with remarks below.</p><ul><li>Products are manufactured specifically to order upon full payment, and</li><li>No refund will be made.</li></ul>",
+    "intro": "<p><b>Dear customer,</b></p><p>Please find your invoice details with remarks below.</p><ul><li>Products are manufactured specifically to order upon full payment, and</li><li>No refund will be made.</li></ul><script>alert('hello world')</script>",
     "notes": "<h1>Note 1</h1><p>Your <b>immediate</b> payment is <em>required</em>.</p><h2>Note 2</h2><p>Payment <strong>MUST</strong> <s>NOT<s> be made via Bank Transfer.</p><h3>Note 3</h3><p><sub>Only Australian dollar is accepted.</sub></p><h4>Note 4</h4><p><sup>Contact us for any queries.</sup></p><p>Other conditions:</p><ol><li>Pay in full, and</li><li>In one transaction.</li></ol><p>Thanks.</p>"
   },
   "chrome_dino": "https://lh3.googleusercontent.com/LoLVzdJdA30GbWyhXj6R4_OLdY6gCti1gYRWXBdNvuAJ5-s98S94DEXeReK1C9nGwCQpQPEodpHTiEASg5rf8YtdwxW2P-09gfeD5cgA1YMHSkrNX1M",
