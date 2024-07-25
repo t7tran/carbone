@@ -293,7 +293,7 @@ function processLists(html) {
   const lists = html.match(/(<li>)(?!(<ul>|<ol>))(.*?)(<\/li>)/g);
   if(!lists) return html;
   lists.forEach(list => {
-    html = html.replace(list, list.replace(/(<li>)(?!(<ul>|<ol>))(.*?)(<\/li>)/, '$1<span>{num}</span><p>$3</p><label> </label>$4'));
+    html = html.replace(list, list.replace(/(<li>)(?!(<ul>|<ol>))(.*?)(<\/li>)/, '$1<p>$3</p>$4'));
   });
   return html;
 }
