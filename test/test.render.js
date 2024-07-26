@@ -11,9 +11,20 @@ const templateFile = path.join(__dirname, "datasets", "test_sample.docx");
 const dataFile = path.join(__dirname, "datasets", "test_sample.json");
 const resultFile = path.join(
   tempDir,
-  `test_sample_${new Date().toISOString().replaceAll(/[TZ:.-]/g, "")}`
+  `test_sample_${new Date().toISOString().replaceAll(/[TZ:.-]/g, "")}`,
 );
-const data = JSON.parse(fs.readFileSync(dataFile, "utf8"));
+const data = JSON.parse(
+  fs
+    .readFileSync(dataFile, "utf8")
+    .replaceAll(/"__([a-zA-Z]+\.[a-z]+)__"/g, (_placeholder, part) =>
+      JSON.stringify(
+        fs.readFileSync(
+          path.join(__dirname, "datasets", `test_sample_${part}`),
+          "utf8",
+        ),
+      ),
+    ),
+);
 const options = {};
 
 if (!fs.existsSync(tempDir)) fs.mkdirSync(tempDir);
@@ -47,7 +58,7 @@ describe("Carbone Render Tests", function () {
             if (err) console.error(err);
             else fs.writeFileSync(`${resultFile}.pdf`, result);
             done();
-          }
+          },
         );
       });
     });
@@ -66,7 +77,7 @@ function unzipSystem(filePath, destPath, callback) {
   var _unzip = spawn("unzip", ["-o", filePath, "-d", destPath]);
   _unzip.on("error", function () {
     throw Error(
-      "\n\nPlease install unzip program to execute tests. Ex: sudo apt install unzip\n\n"
+      "\n\nPlease install unzip program to execute tests. Ex: sudo apt install unzip\n\n",
     );
   });
   _unzip.stderr.on("data", function (data) {
