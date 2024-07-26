@@ -31,6 +31,7 @@
     "dayjs": "=1.11.11",
     "dayjs-timezone-iana-plugin": "=0.1.0",
     "debug": "=4.3.5",
+    "html-minifier": "^4.0.0",
     "html2json": "=1.0.2",
     "sanitize-html": "=2.13.0",
     "which": "=2.0.2",

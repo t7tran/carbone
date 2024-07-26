@@ -1,6 +1,7 @@
-var toMd5 = require('./md5');
+const toMd5 = require('./md5');
 const html2xml = require('../lib/html2xml');
 const sanitizeHtml = require('sanitize-html');
+const minify = require('html-minifier').minify;
 
 const LINEBREAK = {
   odt  : '<text:line-break/>',
@@ -298,10 +299,21 @@ function processLists(html) {
   return html;
 }
 
+const sanitizeOptions = {
+  allowedAttributes: {
+    ...sanitizeHtml.defaults.allowedAttributes,
+    p: ["style"],
+  },
+};
+
 // credit: https://github.com/CryptoNinjaGeek/carbone.git
 function html(d) {
   if (!d) return '';
-  const html2XmlInstance = new html2xml(processLists(sanitizeHtml(d)));
+  const html2XmlInstance = new html2xml(
+    processLists(
+      sanitizeHtml(minify(d, { collapseWhitespace: true }), sanitizeOptions)
+    )
+  );
   return Buffer.from(html2XmlInstance.getXML()).toString('base64') + ':html';
 }
 
