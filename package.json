@@ -40,7 +40,8 @@
     "yazl": "=2.5.1"
   },
   "devDependencies": {
-    "mocha": "=9.2.2"
+    "mocha": "=9.2.2",
+    "pdf-visual-diff": "=0.9.0"
   },
   "engines": {
     "node": ">= 12.14.0"

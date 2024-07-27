@@ -10,7 +10,7 @@
     "topLeft": "__topLeft.html__",
     "topRight": "__topRight.html__"
   },
-  "chrome_dino": "https://picsum.photos/300/300?quality=best&grayscale",
+  "logo_url": "https://raw.githubusercontent.com/t7tran/carbone/v3.5.6-rc.2/doc/carbone_icon_large.svg",
   "logo": "__logo.txt__",
   "company": {
     "name": "myCompany",

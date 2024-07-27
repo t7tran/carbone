@@ -3,6 +3,7 @@ const path = require("path");
 const fs = require("fs");
 const helper = require("../lib/helper");
 const spawn = require("child_process").spawn;
+const { comparePdfToSnapshot } = require("pdf-visual-diff");
 
 carbone.set({ lang: "en-us" });
 
@@ -11,7 +12,7 @@ const templateFile = path.join(__dirname, "datasets", "test_sample.docx");
 const dataFile = path.join(__dirname, "datasets", "test_sample.json");
 const resultFile = path.join(
   tempDir,
-  `test_sample_${new Date().toISOString().replaceAll(/[TZ:.-]/g, "")}`,
+  `test_sample_${new Date().toISOString().replaceAll(/[TZ:.-]/g, "")}`
 );
 const data = JSON.parse(
   fs
@@ -20,10 +21,10 @@ const data = JSON.parse(
       JSON.stringify(
         fs.readFileSync(
           path.join(__dirname, "datasets", `test_sample_${part}`),
-          "utf8",
-        ),
-      ),
-    ),
+          "utf8"
+        )
+      )
+    )
 );
 const options = {};
 
@@ -40,8 +41,7 @@ describe("Carbone Render Tests", function () {
         carbone.render(templateFile, data, options, (err, result) => {
           if (err) {
             console.error(err);
-            done();
-            return;
+            return done(err);
           }
           fs.writeFileSync(`${resultFile}.docx`, result);
           extractDocumentXml(done);
@@ -57,9 +57,21 @@ describe("Carbone Render Tests", function () {
           (err, result) => {
             if (err) console.error(err);
             else fs.writeFileSync(`${resultFile}.pdf`, result);
-            done();
-          },
+            done(err);
+          }
         );
+      });
+      it("should cause no visual differences", function (done) {
+        comparePdfToSnapshot(
+          `${resultFile}.pdf`,
+          path.join(__dirname, "datasets", "test_sample"),
+          "test_sample"
+        )
+          .then((x) => {
+            helper.assert(x, true);
+            done();
+          })
+          .catch((e) => done(e));
       });
     });
   });
@@ -77,7 +89,7 @@ function unzipSystem(filePath, destPath, callback) {
   var _unzip = spawn("unzip", ["-o", filePath, "-d", destPath]);
   _unzip.on("error", function () {
     throw Error(
-      "\n\nPlease install unzip program to execute tests. Ex: sudo apt install unzip\n\n",
+      "\n\nPlease install unzip program to execute tests. Ex: sudo apt install unzip\n\n"
     );
   });
   _unzip.stderr.on("data", function (data) {
