@@ -1,0 +1,22 @@
+// For format details, see https://aka.ms/vscode-remote/devcontainer.json
+{
+  "name": "Carbone",
+  "dockerComposeFile": [
+    "./docker-compose.yml"
+  ],
+  "service": "nodedev", //Asks the devcontainer to connect to this service
+  "workspaceFolder": "/workspace",
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "bash"
+    // Set *default* container specific settings.json values on container create.
+  },
+  "extensions": [
+    "dbaeumer.vscode-eslint",
+    "editorconfig.editorconfig",
+    "esbenp.prettier-vscode",
+    "eamodio.gitlens",
+    "mhutchie.git-graph",
+    "oderwat.indent-rainbow"
+  ],
+  "remoteUser": "node"
+}
