@@ -14,7 +14,7 @@ const resultFile = path.join(
   tempDir,
   `test_sample_${new Date().toISOString().replaceAll(/[TZ:.-]/g, "")}`
 );
-const data = JSON.parse(
+const jsonData =
   fs
     .readFileSync(dataFile, "utf8")
     .replaceAll(/"__([a-zA-Z]+\.[a-z]+)__"/g, (_placeholder, part) =>
@@ -24,9 +24,11 @@ const data = JSON.parse(
           "utf8"
         )
       )
-    )
 );
+const data = JSON.parse(jsonData);
 const options = {};
+
+fs.writeFileSync(`${resultFile}.json`, jsonData);
 
 if (!fs.existsSync(tempDir)) fs.mkdirSync(tempDir);
 
