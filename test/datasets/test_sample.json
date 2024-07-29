@@ -1,0 +1,48 @@
+{
+  "id": 42,
+  "date": 1492012745,
+  "creation": "2022-06-20T02:00:00.000+0000",
+  "url": "https://google.com",
+  "barcode": "0123456789",
+  "html": {
+    "intro": "__intro.html__",
+    "notes": "__notes.html__",
+    "topLeft": "__topLeft.html__",
+    "topRight": "__topRight.html__"
+  },
+  "logo_url": "https://raw.githubusercontent.com/t7tran/carbone/v3.5.6-rc.2/doc/carbone_icon_large.svg",
+  "logo": "__logo.txt__",
+  "company": {
+    "name": "myCompany",
+    "address": "here",
+    "city": "Notfar",
+    "postalCode": 123456
+  },
+  "customer": {
+    "name": "myCustomer",
+    "address": "there",
+    "city": "Faraway",
+    "postalCode": 654321
+  },
+  "products": [
+    {
+      "name": "product 1",
+      "priceUnit": 0.1,
+      "quantity": 10,
+      "priceTotal": 1
+    },
+    {
+      "name": "product 2",
+      "priceUnit": 0.2,
+      "quantity": 20,
+      "priceTotal": 4
+    },
+    {
+      "name": "product 3",
+      "priceUnit": 0.3,
+      "quantity": 30,
+      "priceTotal": 9
+    }
+  ],
+  "total": 14
+}

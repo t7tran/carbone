@@ -1,0 +1,18 @@
+services:
+  nodedev:
+    image: ghcr.io/t7tran/alpine-node-libreoffice:dev
+    build: .
+    volumes:
+    - ..:/workspace
+    - cache:/home/node/.cache
+    - store:/home/node/store
+    command: /bin/sh -c "while sleep 1000; do :; done"
+volumes:
+  cache:
+    labels:
+    - "keep=true"
+    - "app=carbone"
+  store:
+    labels:
+    - "keep=true"
+    - "app=carbone"

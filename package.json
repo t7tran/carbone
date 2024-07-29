@@ -19,6 +19,9 @@
   ],
   "scripts": {
     "test": "./node_modules/.bin/mocha test --timeout 100000 --exit",
+    "test:render": "npm run test -- --grep 'Carbone Render Tests'",
+    "test:render:docx": "npm run test -- --grep 'Docx to Docx'",
+    "test:render:pdf": "npm run test -- --grep 'Docx to PDF'",
     "lint": "eslint ./lib/**.js ./test/**.js ./formatters/**.js",
     "lint:fix": "eslint ./lib/**.js ./test/**.js ./formatters/**.js --fix",
     "postpublish": "PACKAGE_VERSION=$(cat package.json | grep \\\"version\\\" | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git tag $PACKAGE_VERSION && git push origin $PACKAGE_VERSION && git push github-origin $PACKAGE_VERSION"
@@ -28,12 +31,17 @@
     "dayjs": "=1.11.11",
     "dayjs-timezone-iana-plugin": "=0.1.0",
     "debug": "=4.3.5",
+    "html-minifier": "=4.0.0",
+    "html2json": "=1.0.2",
+    "jsdom": "=24.1.1",
+    "sanitize-html": "=2.13.0",
     "which": "=2.0.2",
     "yauzl": "=2.10.0",
     "yazl": "=2.5.1"
   },
   "devDependencies": {
-    "mocha": "=9.2.2"
+    "mocha": "=9.2.2",
+    "pdf-visual-diff": "=0.9.0"
   },
   "engines": {
     "node": ">= 12.14.0"
