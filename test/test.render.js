@@ -8,23 +8,23 @@ const { comparePdfToSnapshot } = require("pdf-visual-diff");
 carbone.set({ lang: "en-us" });
 
 const tempDir = path.join(__dirname, "temp");
-const templateFile = path.join(__dirname, "datasets", "test_sample.docx");
+const docxTemplateFile = path.join(__dirname, "datasets", "test_sample.docx");
+const htmlTemplateFile = path.join(__dirname, "datasets", "test_sample.html");
 const dataFile = path.join(__dirname, "datasets", "test_sample.json");
 const resultFile = path.join(
   tempDir,
   `test_sample_${new Date().toISOString().replaceAll(/[TZ:.-]/g, "")}`
 );
-const jsonData =
-  fs
-    .readFileSync(dataFile, "utf8")
-    .replaceAll(/"__([a-zA-Z]+\.[a-z]+)__"/g, (_placeholder, part) =>
-      JSON.stringify(
-        fs.readFileSync(
-          path.join(__dirname, "datasets", `test_sample_${part}`),
-          "utf8"
-        )
+const jsonData = fs
+  .readFileSync(dataFile, "utf8")
+  .replaceAll(/"__([a-zA-Z]+\.[a-z]+)__"/g, (_placeholder, part) =>
+    JSON.stringify(
+      fs.readFileSync(
+        path.join(__dirname, "datasets", `test_sample_${part}`),
+        "utf8"
       )
-);
+    )
+  );
 const data = JSON.parse(jsonData);
 const options = {};
 
@@ -40,7 +40,7 @@ describe("Carbone Render Tests", function () {
         done();
       });
       it("should render successfully", function (done) {
-        carbone.render(templateFile, data, options, (err, result) => {
+        carbone.render(docxTemplateFile, data, options, (err, result) => {
           if (err) {
             console.error(err);
             return done(err);
@@ -53,7 +53,7 @@ describe("Carbone Render Tests", function () {
     describe("Docx to PDF", function () {
       it("should render successfully", function (done) {
         carbone.render(
-          templateFile,
+          docxTemplateFile,
           data,
           { ...options, convertTo: "PDF" },
           (err, result) => {
@@ -76,6 +76,20 @@ describe("Carbone Render Tests", function () {
             })
             .catch((e) => done(e));
         });
+    });
+    describe("HTML to PDF", function () {
+      it("should render successfully", function (done) {
+        carbone.render(
+          htmlTemplateFile,
+          data,
+          { ...options, convertTo: "PDF" },
+          (err, result) => {
+            if (err) console.error(err);
+            else fs.writeFileSync(`${resultFile}.pdf`, result);
+            done(err);
+          }
+        );
+      });
     });
   });
 });

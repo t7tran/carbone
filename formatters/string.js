@@ -320,8 +320,8 @@ function html(d) {
   const sanitized = sanitizeHtml(d, sanitizeOptions);
   const flatten = flattenListItems(sanitized);
   const minified = minify(flatten, { collapseWhitespace: true });
-  const html2XmlInstance = new html2xml(processLists(minified));
-  return Buffer.from(html2XmlInstance.getXML()).toString('base64') + ':html';
+  const processedHtml = processLists(minified);
+  return 'html:' + Buffer.from(processedHtml).toString('base64') + ':html';
 }
 
 module.exports = {
