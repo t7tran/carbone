@@ -1,0 +1,40 @@
+{
+  "version": "3.5.6",
+  "configurations": [
+    {
+      "args": [
+        "--timeout",
+        "100000",
+        "--exit",
+        "--colors",
+        "${relativeFile}"
+      ],
+      "internalConsoleOptions": "openOnSessionStart",
+      "name": "Mocha Test Single File",
+      "program": "${workspaceFolder}/node_modules/.bin/mocha",
+      "request": "launch",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "type": "node"
+    },
+    {
+      "args": [
+        "--timeout",
+        "100000",
+        "--exit",
+        "--colors",
+        "--grep",
+        "Docx to Docx"
+      ],
+      "internalConsoleOptions": "openOnSessionStart",
+      "name": "Mocha Test Docx to Docx",
+      "program": "${workspaceFolder}/node_modules/.bin/mocha",
+      "request": "launch",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "type": "node"
+    }
+  ]
+}
