@@ -303,7 +303,7 @@ function processLists(html) {
 const sanitizeOptions = {
   allowedAttributes: {
     ...sanitizeHtml.defaults.allowedAttributes,
-    p: ["style"],
+    p: ["class", "style"],
   },
 };
 
