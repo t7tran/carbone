@@ -58,7 +58,7 @@ describe("Carbone Render Tests", function () {
           { ...options, convertTo: "PDF" },
           (err, result) => {
             if (err) console.error(err);
-            else fs.writeFileSync(`${resultFile}.pdf`, result);
+            else fs.writeFileSync(`${resultFile}.docx.pdf`, result);
             done(err);
           }
         );
@@ -66,7 +66,7 @@ describe("Carbone Render Tests", function () {
       process.env.REMOTE_CONTAINERS && // XXX only verify inside test container
         it("should cause no visual differences", function (done) {
           comparePdfToSnapshot(
-            `${resultFile}.pdf`,
+            `${resultFile}.docx.pdf`,
             path.join(__dirname, "datasets", "test_sample"),
             "test_sample"
           )
@@ -85,7 +85,7 @@ describe("Carbone Render Tests", function () {
           { ...options, convertTo: "PDF" },
           (err, result) => {
             if (err) console.error(err);
-            else fs.writeFileSync(`${resultFile}.pdf`, result);
+            else fs.writeFileSync(`${resultFile}.html.pdf`, result);
             done(err);
           }
         );
