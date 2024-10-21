@@ -291,7 +291,7 @@ function prepend (d, toPrepend) {
 
 // credit: https://github.com/CryptoNinjaGeek/carbone.git
 function processLists(html) {
-  html = html.replace(/(<li>)(.+?)(<ul>)/, '$1$2</li><li>$3');
+  // html = html.replace(/(<li>)(.+?)(<ul>)/, '$1$2</li><li>$3');
   const lists = html.match(/(<li>)(?!(<ul>|<ol>))(.*?)(<\/li>)/g);
   if(!lists) return html;
   lists.forEach(list => {
