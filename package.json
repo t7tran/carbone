@@ -23,6 +23,7 @@
     "test:render:docx": "npm run test -- --grep 'Docx to Docx'",
     "test:render:pdf": "npm run test -- --grep 'Docx to PDF'",
     "test:render:html": "npm run test -- --grep 'HTML to PDF'",
+    "test:extras": "npm run test -- --grep 'Extra Tests'",
     "lint": "eslint ./lib/**.js ./test/**.js ./formatters/**.js",
     "lint:fix": "eslint ./lib/**.js ./test/**.js ./formatters/**.js --fix",
     "postpublish": "PACKAGE_VERSION=$(cat package.json | grep \\\"version\\\" | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git tag $PACKAGE_VERSION && git push origin $PACKAGE_VERSION && git push github-origin $PACKAGE_VERSION"
