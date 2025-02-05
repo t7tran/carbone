@@ -67,8 +67,8 @@ describe("Carbone Render Tests", function () {
         it("should cause no visual differences", function (done) {
           comparePdfToSnapshot(
             `${resultFile}.docx.pdf`,
-            path.join(__dirname, "datasets", "test_sample"),
-            "test_sample"
+            path.join(__dirname, "datasets"),
+            "docx2pdf"
           )
             .then((x) => {
               helper.assert(x, true);
@@ -90,6 +90,19 @@ describe("Carbone Render Tests", function () {
           }
         );
       });
+      process.env.REMOTE_CONTAINERS && // XXX only verify inside test container
+        it("should cause no visual differences", function (done) {
+          comparePdfToSnapshot(
+            `${resultFile}.html.pdf`,
+            path.join(__dirname, "datasets"),
+            "html2pdf"
+          )
+            .then((x) => {
+              helper.assert(x, true);
+              done();
+            })
+            .catch((e) => done(e));
+        });
     });
   });
 });

@@ -1,5 +1,4 @@
 const toMd5 = require('./md5');
-const html2xml = require('../lib/html2xml');
 const sanitizeHtml = require('sanitize-html');
 const minify = require('html-minifier').minify;
 const jsdom = require("jsdom").JSDOM;
@@ -310,7 +309,7 @@ const sanitizeOptions = {
 function flattenListItems(html) {
   const dom = new jsdom(html);
   const lis = dom.window.document.querySelectorAll('li');
-  lis.forEach(li => li.innerHTML = li.textContent);
+  lis.forEach(li => li.textContent = li.textContent);
   return dom.window.document.body.innerHTML;
 }
 
