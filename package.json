@@ -36,6 +36,7 @@
     "html-minifier": "=4.0.0",
     "html2json": "=1.0.2",
     "jsdom": "=24.1.1",
+    "luxon": "^3.6.1",
     "sanitize-html": "=2.13.0",
     "which": "=2.0.2",
     "yauzl": "=2.10.0",

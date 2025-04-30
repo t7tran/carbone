@@ -2,6 +2,7 @@
   "id": 42,
   "date": 1492012745,
   "creation": "2022-06-20T02:00:00.000+0000",
+  "datetime": "2025-04-06T02:26:08.000+0000",
   "url": "https://google.com",
   "barcode": "0123456789",
   "html": {
@@ -44,5 +45,9 @@
       "priceTotal": 9
     }
   ],
-  "total": 14
+  "total": 14,
+  "__options": {
+    "timezone": "Australia/Adelaide",
+    "lang": "en-AU"
+  }
 }

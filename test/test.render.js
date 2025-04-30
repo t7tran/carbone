@@ -55,7 +55,7 @@ describe("Carbone Render Tests", function () {
         carbone.render(
           docxTemplateFile,
           data,
-          { ...options, convertTo: "PDF" },
+          { ...options, ...(data.__options || {}), convertTo: "PDF" },
           (err, result) => {
             if (err) console.error(err);
             else fs.writeFileSync(`${resultFile}.docx.pdf`, result);
@@ -82,7 +82,7 @@ describe("Carbone Render Tests", function () {
         carbone.render(
           htmlTemplateFile,
           data,
-          { ...options, convertTo: "PDF" },
+          { ...options, ...(data.__options || {}), convertTo: "PDF" },
           (err, result) => {
             if (err) console.error(err);
             else fs.writeFileSync(`${resultFile}.html.pdf`, result);

@@ -1,5 +1,5 @@
 var dayjs = require('dayjs');
-
+var luxon = require('luxon');
 
 /**
  * Format dates. It takes an output date pattern as an argument. Date patterns are available on [this section](#date-formats).
@@ -35,7 +35,14 @@ var dayjs = require('dayjs');
  */
 function formatD (d, patternOut, patternIn) {
   if (d !== null && typeof d !== 'undefined') {
-    return parse(d, patternIn).tz(this.timezone).locale(this.lang).format(patternOut);
+    // XXX use luxon to correct timezone issue in dayjs during DST, and preserve existing date formats
+    // https://github.com/iamkun/dayjs/issues/1260
+    const luxonDate = luxon.DateTime.fromJSDate(parse(d, patternIn).toDate()).setZone(this.timezone)
+    const zz = luxonDate.toFormat("ZZ");
+    const zzz= luxonDate.toFormat("ZZZ");
+    const tzdateAtUTC = luxonDate.toISO().substring(0,23);
+    const patternWithTZ = patternOut.replaceAll("ZZ", zzz).replaceAll("Z", zz);
+    return dayjs(tzdateAtUTC).locale(this.lang).format(patternWithTZ);
   }
   return d;
 }
